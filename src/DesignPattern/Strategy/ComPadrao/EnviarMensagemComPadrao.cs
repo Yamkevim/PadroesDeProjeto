@@ -11,22 +11,17 @@ namespace DesignPattern.Strategy.ComPadrao
     {
         public void Enviar(List<Mensagem> mensagens, string tipo)
         {
-            IEnviarMensagem enviaMensagem;
-            if (tipo.ToLower() == "email")
-            {
-                enviaMensagem = new MensagemEmail();
-                enviaMensagem.Enviar(mensagens);
-            }
-            if (tipo.ToLower() == "sms")
-            {
-                enviaMensagem = new MensagemSms();
-                enviaMensagem.Enviar(mensagens);
-            }
-            if (tipo.ToLower() == "push")
-            {
-                enviaMensagem = new MensagemPush();
-                enviaMensagem.Enviar(mensagens);
-            }
+            var enviaMensagemEmail = new MensagemEmail();
+            var enviaMensagemSms = new MensagemSms();
+            var enviaMensagemPush = new MensagemPush();
+            var enviaMensagemSemCanal = new MensagemSemCanal();
+            enviaMensagemEmail.ProximoEnvio = enviaMensagemSms;
+            enviaMensagemSms.ProximoEnvio = enviaMensagemPush;
+            enviaMensagemPush.ProximoEnvio = enviaMensagemSemCanal;
+
+
+            var enviaMensagem = enviaMensagemEmail.CriarEnvio(tipo);
+            enviaMensagem.Enviar(mensagens);
         }
     }
 }

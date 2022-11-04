@@ -9,5 +9,7 @@ namespace DesignPattern.Strategy.ComPadrao
     public interface IEnviarMensagem
     {
         void Enviar(List<Mensagem> mensagens);
+        IEnviarMensagem CriarEnvio(string tipo);
+        IEnviarMensagem ProximoEnvio { get; set; }
     }
 }

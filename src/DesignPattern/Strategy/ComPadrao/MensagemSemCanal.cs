@@ -6,22 +6,18 @@ using System.Threading.Tasks;
 
 namespace DesignPattern.Strategy.ComPadrao
 {
-    public class MensagemSms : IEnviarMensagem
+    public class MensagemSemCanal : IEnviarMensagem
     {
-        public IEnviarMensagem ProximoEnvio { get ; set ; }
+        public IEnviarMensagem ProximoEnvio { get ; set; }
 
         public IEnviarMensagem CriarEnvio(string tipo)
         {
-            if (tipo != "sms")
-            {
-                return ProximoEnvio.CriarEnvio(tipo);
-            }
             return this;
         }
 
         public void Enviar(List<Mensagem> mensagens)
         {
-            Console.WriteLine("Sms enviado");
+            Console.WriteLine("Mensagem sem canal Ativo!");
         }
     }
 }
